@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMLHTTLPREQ</title>
+
+    <!-- Value	State	Description
+0	UNSENT	Client has been created. open() not called yet.
+1	OPENED	open() has been called.
+2	HEADERS_RECEIVED	send() has been called, and headers and status are available.
+3	LOADING	Downloading; responseText holds partial data.
+4	DONE	The operation is complete. -->
+
+</head>
+<body>
+
+    <img src="" alt="profile image">
+    <h1>name</h1>
+    
+    
+</body>
+
+<script>
+    const url = "https://api.github.com/users/tanmayR18"
+    const xrl = new XMLHttpRequest()
+    xrl.open("GET", url)
+    xrl.onreadystatechange = function(){
+        console.log(xrl.readyState);
+        if( xrl.readyState === 4) {
+            const data = JSON.parse(this.responseText)
+            console.log(data);
+            setData(data)
+            console.log(data.followers);
+        }
+    }
+    xrl.send()
+
+    function setData(data){
+        document.querySelector("img").setAttribute("src", data.avatar_url)
+        document.querySelector("h1").innerHTML = data.name
+    }
+</script>
+</html>
