@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js events</title>
+</head>
+<body>
+    
+    <button id="stop">
+        Stop
+    </button>
+
+    <button id="start">
+        Start
+    </button>
+
+    <script>
+        
+        // const timeoutFun = () => {
+        //     console.log("I have consoled");
+        // }
+
+        // const timeOut = setTimeout( timeoutFun, 3000)
+
+        // document.querySelector('button')
+        //     .addEventListener("click", () =>{
+        //         clearTimeout(timeOut)
+        //     })
+
+        let intervalID; // Declare intervalID outside so it can be accessed by both event listeners
+
+        const startFun = (str) => {
+            console.log(str, Date.now());
+        }
+
+        // Start the interval immediately when the page loads
+        intervalID = setInterval(startFun, 1000, "hey");
+
+        document.querySelector("#start").addEventListener("click", () => {
+            // If the interval is already running, clear it before starting a new one
+            if (intervalID) {
+                clearInterval(intervalID);
+            }
+            intervalID = setInterval(startFun, 1000, "hey"); // Start or resume the interval when the start button is clicked
+        });
+
+        document.querySelector("#stop").addEventListener("click", () => {
+            clearInterval(intervalID); // Stop the interval when the stop button is clicked
+            intervalID = null; // Clear intervalID so the start button knows to start a new interval
+        });
+    </script>
+</body>
+</html>
